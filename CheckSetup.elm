@@ -36,8 +36,8 @@ searchFeed =
         url =
             "http://github-proxy-api.herokuapp.com/users/jackfranklin"
     in
-        Http.get url (Json.Decode.succeed ())
-            |> Http.send Response
+    Http.get url (Json.Decode.succeed ())
+        |> Http.send Response
 
 
 view : Model -> Html Msg
@@ -87,4 +87,4 @@ update msg model =
                                 ++ " "
                                 ++ status.message
             in
-                ( { status = status }, Cmd.none )
+            ( { status = status }, Cmd.none )

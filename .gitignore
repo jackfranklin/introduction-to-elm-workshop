@@ -2,3 +2,5 @@ package-lock.json
 yarn.lock
 elm-stuff/
 elm.js
+yarn-error.log
+node_modules/

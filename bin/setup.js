@@ -12,8 +12,6 @@ const runCommand = (cmd) => {
   shelljs.exec(cmd)
 }
 
-runCommand(hasYarn ? 'yarn install' : 'npm install')
-
 runCommand('elm package install -y')
 
 console.log('Going to run CheckSetup.elm to make sure things are working correctly');

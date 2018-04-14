@@ -5,7 +5,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "setup": "node ./bin/setup.js",
+    "setup": "npm install && node ./bin/setup.js",
     "exercise": "node ./bin/run-exercise $1"
   },
   "dependencies": {
