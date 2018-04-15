@@ -12,7 +12,7 @@ pluralize singular plural number =
 
 
 main =
-    -- EXERCISE: can you add a heading to this page?
     div [ class "content" ]
-        [ text (pluralize "apple" "apples" 5)
+        [ h1 [] [ text "best workshop ever" ]
+        , text (pluralize "apple" "apples" 5)
         ]
