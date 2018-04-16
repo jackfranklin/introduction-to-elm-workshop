@@ -5,20 +5,21 @@ import Html.Attributes exposing (..)
 
 
 type alias Fruit =
-    ( String, String, Int )
-
-
-
--- EXERCISE: add another fruit or two to the list
+    { singular : String
+    , plural : String
+    , number : Int
+    }
 
 
 fruits : List Fruit
 fruits =
-    [ ( "apple", "apples", 2 ), ( "banana", "bananas", 1 ) ]
+    [ { singular = "apple", plural = "apples", number = 4 }
+    , { singular = "banana", plural = "bananas", number = 1 }
+    ]
 
 
 pluralize : Fruit -> String
-pluralize ( singular, plural, number ) =
+pluralize { singular, plural, number } =
     if number == 1 then
         singular
     else
