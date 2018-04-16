@@ -13,7 +13,7 @@ header {
   background-color: rgb(96, 181, 204);
 }
 
-h1 {
+header h1 {
   color: white;
   font-weight: normal;
   margin: 0;
