@@ -41,3 +41,7 @@ npm run setup
 # OR:
 yarn run setup
 ```
+
+## Workshop slides
+
+Don't read these on the day! They are here for you to refer to them after the event: https://slides.com/jackfranklin/introduction-to-elm
