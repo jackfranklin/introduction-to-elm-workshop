@@ -5,8 +5,6 @@ const path = require('path');
 
 const exercise = yargs.argv._[0]
 
-const hasYarn = shelljs.exec('which yarn').code === 0
-
 let exercisePath = path.resolve(process.cwd(), exercise)
 
 if (exercisePath.indexOf('.elm') === -1) {
