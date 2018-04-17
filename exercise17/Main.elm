@@ -13,6 +13,7 @@ type alias Model =
     { fruits : List Fruit
     , userFruitNameInput : String
     , userFruitCountInput : String
+    , fruitSorting : FruitSorting
     }
 
 
@@ -33,6 +34,7 @@ initialModel =
     { fruits = [ { name = "Apple", count = 5 }, { name = "Banana", count = 4 } ]
     , userFruitNameInput = ""
     , userFruitCountInput = "0"
+    , fruitSorting = CountAsc
     }
 
 
@@ -60,17 +62,7 @@ update msg model =
                 }
 
         SortFruit sortType ->
-            case sortType of
-                -- exercise: can you refactor these to be tidier
-                -- using the pipeline operator and the .count trick we learned
-                CountAsc ->
-                    { model | fruits = List.sortBy (\fruit -> fruit.count) model.fruits }
-
-                CountDesc ->
-                    { model
-                        | fruits =
-                            List.reverse (List.sortBy (\fruit -> fruit.count) model.fruits)
-                    }
+            { model | fruitSorting = sortType }
 
 
 renderFruit : Fruit -> Html Msg
@@ -79,6 +71,14 @@ renderFruit fruit =
         [ text <| "Fruit: " ++ fruit.name
         , text <| ", Count: " ++ toString (fruit.count)
         ]
+
+
+renderFruits : List Fruit -> FruitSorting -> Html Msg
+renderFruits fruits fruitSorting =
+    -- EXERCISE: can you take fruitSorting into account here
+    -- and order the fruits in the proper order based on the value
+    -- of fruitSorting
+    ul [] (List.map renderFruit fruits)
 
 
 view : Model -> Html Msg
@@ -90,7 +90,7 @@ view model =
             [ button [ onClick (SortFruit CountAsc) ] [ text "Count Asc" ]
             , button [ onClick (SortFruit CountDesc) ] [ text "Count Desc" ]
             ]
-        , ul [] (List.map renderFruit model.fruits)
+        , renderFruits model.fruits model.fruitSorting
         , form [ onSubmit StoreNewFruit ]
             [ button [ type_ "submit" ]
                 [ text "Save Fruit" ]
