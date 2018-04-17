@@ -16,8 +16,14 @@ type alias Model =
     }
 
 
+type FruitSorting
+    = CountAsc
+    | CountDesc
+
+
 type Msg
     = StoreNewFruit
+    | SortFruit FruitSorting
     | UserFruitNameInput String
     | UserFruitCountInput String
 
@@ -40,10 +46,31 @@ update msg model =
             ({ model | userFruitCountInput = newValue })
 
         StoreNewFruit ->
-            -- EXERCISE: can you make this add a fruit to the fruits list?
-            -- you will need to parse the userFruitCountInput to an integer
-            -- and then create a new fruit to add to model.fruits
-            model
+            let
+                newCount =
+                    String.toInt model.userFruitCountInput |> Result.withDefault 0
+
+                newFruit =
+                    Debug.log "newfurit " { name = model.userFruitNameInput, count = newCount }
+            in
+                { model
+                    | fruits = newFruit :: model.fruits
+                    , userFruitNameInput = ""
+                    , userFruitCountInput = "0"
+                }
+
+        SortFruit sortType ->
+            case sortType of
+                -- exercise: can you refactor these to be tidier
+                -- using the pipeline operator and the .count trick we learned
+                CountAsc ->
+                    { model | fruits = List.sortBy (\fruit -> fruit.count) model.fruits }
+
+                CountDesc ->
+                    { model
+                        | fruits =
+                            List.reverse (List.sortBy (\fruit -> fruit.count) model.fruits)
+                    }
 
 
 renderFruit : Fruit -> Html Msg
@@ -59,6 +86,10 @@ view model =
     div
         [ class "content" ]
         [ h1 [] [ text "FruitCounterApp" ]
+        , div [ class "sorting" ]
+            [ button [ onClick (SortFruit CountAsc) ] [ text "Count Asc" ]
+            , button [ onClick (SortFruit CountDesc) ] [ text "Count Desc" ]
+            ]
         , ul [] (List.map renderFruit model.fruits)
         , form [ onSubmit StoreNewFruit ]
             [ button [ type_ "submit" ]
