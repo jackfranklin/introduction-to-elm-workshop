@@ -11,4 +11,12 @@ if (exercisePath.indexOf('.elm') === -1) {
   exercisePath = path.resolve(exercisePath, 'Main.elm')
 }
 
-shelljs.exec(`./node_modules/.bin/elm-live --open ${exercisePath} --output=elm.js`)
+let outputArg = 'elm.js'
+
+let extraArgs = ''
+if (exercisePath.indexOf('exercise22') > -1) {
+  //  special case - this one has ports so we need the custom index.html file
+  extraArgs = `--dir=${path.resolve(process.cwd(), exercise)}`
+  outputArg = `${path.resolve(process.cwd(), exercise, 'elm.js')}`
+}
+shelljs.exec(`./node_modules/.bin/elm-live --open ${exercisePath} --output=${outputArg} ${extraArgs}`)

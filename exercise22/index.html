@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Elm Workshop</title>
+  <script type="text/javascript" src="/elm.js"></script>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <script type="text/javascript">
+    var app = Elm.Main.fullscreen();
+
+    function searchGithub(username) {
+      console.log('searching github', username);
+      return fetch(`http://github-proxy-api.herokuapp.com/users/${username}`).then(response => {
+        return response.json()
+      }).then(data => {
+        // EXERCISE: send the data to the githubResults port
+      })
+    }
+
+    // EXERCISE: subscribe to the githubSearch port and call
+    // the searchGithub function when we get an event from Elm
+  </script>
+</body>
+</html>

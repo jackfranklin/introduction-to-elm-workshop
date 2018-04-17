@@ -1,10 +1,9 @@
-module Main exposing (..)
+port module Main exposing (..)
 
 import Html exposing (..)
 import Html.Attributes exposing (class, type_, value, placeholder)
 import Html.Events exposing (onClick, onInput, onSubmit)
 import Json.Decode as JD
-import Http
 
 
 type alias Person =
@@ -20,7 +19,7 @@ type alias Model =
 
 type Msg
     = FetchPerson
-    | GotPerson (Result Http.Error Person)
+    | GotPerson (Result String Person)
 
 
 nameDecoder : JD.Decoder String
@@ -44,25 +43,11 @@ initialModel =
     }
 
 
-fetchPerson : Cmd Msg
-fetchPerson =
-    let
-        url =
-            "http://github-proxy-api.herokuapp.com/users/jackfranklin"
-
-        -- EXERCISE: create a request here by calling Http.get with the right arguments
-        -- request = ...
-    in
-        --  EXERCISE: use Http.send here to take the request you just created and send it to the Elm runtime.
-        -- Http.send ...
-        Cmd.none
-
-
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         FetchPerson ->
-            ( model, fetchPerson )
+            ( model, githubSearch "jackfranklin" )
 
         GotPerson (Ok person) ->
             ( { model | person = Just person }, Cmd.none )
@@ -73,6 +58,18 @@ update msg model =
                     Debug.log "Got decoding error" text
             in
                 ( model, Cmd.none )
+
+
+handleGithubResponse : JD.Value -> Msg
+handleGithubResponse valueFromGithubJS =
+    let
+        _ =
+            Debug.log "got value from github js" valueFromGithubJS
+    in
+        -- EXERCISE: hook up the personDecoder here so we decode properly
+        -- hint: JD.decodeValue might come in useful
+        Err "You need to implement handleGithubResponse!"
+            |> GotPerson
 
 
 viewPerson : Maybe Person -> Html Msg
@@ -89,7 +86,7 @@ view : Model -> Html Msg
 view model =
     div
         [ class "content" ]
-        [ h1 [] [ text "Parse the person" ]
+        [ h1 [] [ text "Github with Ports" ]
         , div []
             [ button [ type_ "button", onClick FetchPerson ]
                 [ text "Parse the person" ]
@@ -109,5 +106,11 @@ main =
         { init = init
         , view = view
         , update = update
-        , subscriptions = \_ -> Sub.none
+        , subscriptions = \_ -> githubResults handleGithubResponse
         }
+
+
+port githubSearch : String -> Cmd msg
+
+
+port githubResults : (JD.Value -> msg) -> Sub msg

@@ -73,7 +73,7 @@ view : Model -> Html Msg
 view model =
     div
         [ class "content" ]
-        [ h1 [] [ text "Roll the dice" ]
+        [ h1 [] [ text "Parse the person" ]
         , div []
             [ button [ type_ "button", onClick ParsePerson ]
                 [ text "Parse the person" ]
