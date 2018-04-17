@@ -16,4 +16,4 @@ runCommand('elm package install -y')
 
 console.log('Going to run CheckSetup.elm to make sure things are working correctly');
 
-runCommand('yarn run exercise CheckSetup.elm')
+runCommand('yarn run exercise check-setup/CheckSetup.elm')
