@@ -21,4 +21,4 @@ if (exercisePath.indexOf('exercise22') > -1) {
 }
 const elmLivePath = path.resolve(process.cwd(), 'node_modules', '.bin', 'elm-live')
 
-shelljs.exec(`${elmLivePath} --open ${exercisePath} --output=${outputArg} ${extraArgs}`)
+shelljs.exec(`${elmLivePath} --open ${exercisePath} --output=${outputArg} ${extraArgs} --debug`)
