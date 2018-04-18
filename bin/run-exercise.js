@@ -19,4 +19,6 @@ if (exercisePath.indexOf('exercise22') > -1) {
   extraArgs = `--dir=${path.resolve(process.cwd(), exercise)}`
   outputArg = `${path.resolve(process.cwd(), exercise, 'elm.js')}`
 }
-shelljs.exec(`./node_modules/.bin/elm-live --open ${exercisePath} --output=${outputArg} ${extraArgs}`)
+const elmLivePath = path.resolve(process.cwd(), 'node_modules', '.bin', 'elm-live')
+
+shelljs.exec(`${elmLivePath} --open ${exercisePath} --output=${outputArg} ${extraArgs}`)

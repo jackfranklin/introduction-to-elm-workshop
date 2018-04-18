@@ -5,8 +5,8 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "setup": "npm install && node ./bin/setup.js",
-    "exercise": "node ./bin/run-exercise $1"
+    "setup": "npm install && node bin/setup.js",
+    "exercise": "node bin/run-exercise $1"
   },
   "dependencies": {
     "chalk": "^2.3.2",
