@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "setup": "npm install && node bin/setup.js",
-    "exercise": "node bin/run-exercise $1"
+    "exercise": "node bin/run-exercise"
   },
   "dependencies": {
     "chalk": "^2.3.2",
