@@ -42,6 +42,14 @@ npm run setup
 yarn run setup
 ```
 
+## On Windows
+
+To run an exercise:
+
+```
+npx elm-live --open exercise1/Main.elm --output=elm.js
+```
+
 ## Workshop slides
 
 Don't read these on the day! They are here for you to refer to them after the event: https://slides.com/jackfranklin/introduction-to-elm
